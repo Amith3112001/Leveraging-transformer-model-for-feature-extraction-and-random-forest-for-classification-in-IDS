@@ -13,7 +13,36 @@
     margin-right: auto;
 }
 </style>
+<!-- Include jsPDF and html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
+
+<script>
+    async function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const element = document.getElementById("predictionTable");
+
+        html2canvas(element).then(canvas => {
+            const imgData = canvas.toDataURL("image/png");
+            const pdf = new jsPDF({
+                orientation: "portrait",
+                unit: "mm",
+                format: "a4"
+            });
+
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const imgProps = pdf.getImageProperties(imgData);
+            const imgWidth = pageWidth - 20;
+            const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
+
+            pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+            pdf.save("Prediction_Report.pdf");
+        });
+    }
+</script>
+
 <body>
 <div class="headlabel">  <h1 style=" font-family: Times New Roman; ">Leveraging Transformer Model for Feature Extraction and Random forest for Classification in IDS</h1> </div>
 <div>
@@ -52,14 +81,17 @@
               <td> <div style="width: 500px; height: 50px;color: Black;">
                   <div style="text-align: center; color: Black;">
     <h3>Prediction Results</h3>
-    <div>{{ data | safe }}</div>  <!-- Displays the HTML table -->
+    <div id="predictionTable">    <!-- Displays the HTML table -->
+        {{ data | safe }}
+    </div>
 </div>
       </div></td>
               <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
          </tr>
      </table>
-
-
+</div>
+<div style="text-align: center; margin-top: 20px;">
+    <button onclick="downloadPDF()">Download Report</button>
 </div>
 </div>
 </body>
