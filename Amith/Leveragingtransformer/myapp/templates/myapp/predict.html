@@ -51,7 +51,105 @@
              <td>&nbsp;&nbsp;</td>
               <td> <div style="width: 500px; height: 50px;color: Black;">
                   <div style="text-align: center; color: Black;">
-    <h3>Prediction Results</h3>
+    <h3>Prediction Results<<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Home Page</title>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
+            {% load static %}
+            <link rel="stylesheet" type="text/css" href="{% static 'css/homestyle.css' %}">
+        <style>
+            table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        </style>
+        <!-- Include jsPDF and html2canvas -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        </head>
+        
+        <script>
+            async function downloadPDF() {
+                const { jsPDF } = window.jspdf;
+                const element = document.getElementById("predictionTable");
+        
+                html2canvas(element).then(canvas => {
+                    const imgData = canvas.toDataURL("image/png");
+                    const pdf = new jsPDF({
+                        orientation: "portrait",
+                        unit: "mm",
+                        format: "a4"
+                    });
+        
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const pageHeight = pdf.internal.pageSize.getHeight();
+                    const imgProps = pdf.getImageProperties(imgData);
+                    const imgWidth = pageWidth - 20;
+                    const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
+        
+                    pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+                    pdf.save("Prediction_Report.pdf");
+                });
+            }
+        </script>
+        
+        <body>
+        <div class="headlabel">  <h1 style=" font-family: Times New Roman; ">Leveraging Transformer Model for Feature Extraction and Random forest for Classification in IDS</h1> </div>
+        <div>
+            <header class="logo">
+        
+        
+                <nav>
+                    <ul>
+                        <li><a href="/homepage" style="color: #fff; ">Home</a></li>
+                        <li><a href="/eda" style="color: #fff;">Data Upload</a></li>
+                        <li><a href="/modelcreation" style="color: #fff;">Model Creation</a></li>
+                        <li><a href="/predict" style="color: #fff;">Data Prediction</a></li>
+                        <li><a href="/viewgraph" style="color: #fff;">Evaluation Matrix</a></li>
+                        <li><a href="/login" style="color: #fff;">Logout</a></li>
+        
+                    </ul>
+                </nav>
+            </header>
+            </div>
+        
+        <br>
+        <br>
+        <div>
+            <div style=" font-family: Times New Roman; color:Black;text-align:center;">
+        <div style=" font-family: Times New Roman; color:darkblue;text-align:center;">
+         <form action="{% url 'predict' %}" method="POST">
+                 {% csrf_token %}
+             <h3 style="text-align:center;color:Black;;">PREDICT NEW DATA </h3><br>
+          <input type="file" id="myFile" name="myFile"><br/><br/><br/>
+          <input type="submit">
+             <br><br>
+             <br><br>
+             <table align="center" style="margin: 0px auto;>
+                 <tr>
+                     <td>&nbsp;&nbsp;</td>
+                      <td> <div style="width: 500px; height: 50px;color: Black;">
+                          <div style="text-align: center; color: Black;">
+            <h3>Prediction Results</h3>
+            <div id="predictionTable">    <!-- Displays the HTML table -->
+                {{ data | safe }}
+            </div>
+        </div>
+              </div></td>
+                      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                 </tr>
+             </table>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="downloadPDF()">Download Report</button>
+        </div>
+        </div>
+        </body>
+        </html>
+        /h3>
     <div>{{ data | safe }}</div>  <!-- Displays the HTML table -->
 </div>
       </div></td>
