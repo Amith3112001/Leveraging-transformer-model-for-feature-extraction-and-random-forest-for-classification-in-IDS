@@ -16,6 +16,12 @@ import pandas as pd
 import pandas as pd
 import os
 from django.shortcuts import render
+from django.http import FileResponse
+from io import BytesIO
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet
 
 global df, X, y, label_encoder, y_encoded, scaler, X_scaled
 global X_train, X_test, y_train, y_test, X_train_tensor, y_train_tensor, X_test_tensor, y_test_tensor
@@ -238,6 +244,7 @@ def modelcreation(request):
 
 def predict(request):
     if request.method=='POST':
+        download_flag = request.POST.get('download_flag')
         imgname = request.POST['myFile']
         # Load the saved model, scaler, and label encoder
         rf_model = joblib.load("rf_model.pkl")
@@ -287,7 +294,31 @@ def predict(request):
         except Exception as e:
             table_html = f"<p>Error loading file: {str(e)}</p>"
 
-        return render(request, 'myapp/predict.html', {"data": table_html})
+        #return render(request, 'myapp/predict.html', {"data": table_html})
+        if download_flag == '1':
+            # Generate PDF from top3predictions.csv
+            df = pd.read_csv(csv_path)
+            buffer = BytesIO()
+            doc = SimpleDocTemplate(buffer, pagesize=letter)
+            elements = []
+
+            styles = getSampleStyleSheet()
+            elements.append(Paragraph("Top 3 Predictions Report", styles['Title']))
+            data = [df.columns.tolist()] + df.values.tolist()
+            table = Table(data)
+            table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                ('FONTSIZE', (0, 0), (-1, -1), 10),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ]))
+            elements.append(table)
+            doc.build(elements)
+            buffer.seek(0)
+
+            return FileResponse(buffer, as_attachment=True, filename='Prediction_Report.pdf')
     return render(request, 'myapp/predict.html')
 
 def viewgraph(request):

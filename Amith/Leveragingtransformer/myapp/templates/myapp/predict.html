@@ -14,6 +14,11 @@
 }
 </style>
 </head>
+<script>
+    function setDownloadFlag() {
+        document.getElementById('download_flag').value = 1;
+    }
+</script>
 <body>
 <div class="headlabel">  <h1 style=" font-family: Times New Roman; ">Leveraging Transformer Model for Feature Extraction and Random forest for Classification in IDS</h1> </div>
 <div>
@@ -58,8 +63,15 @@
               <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
          </tr>
      </table>
-
-
+</div>
+<input type="hidden" id="download_flag" name="download_flag" value="0">
+<div style="text-align: center; margin-top: 20px;">
+    <form method="post" action="/download_report/">
+        {% csrf_token %}
+        <button type="submit" style="background-color: green; color: white; padding: 5px 15px;">
+            Download Report
+        </button>
+    </form>
 </div>
 </div>
 </body>
