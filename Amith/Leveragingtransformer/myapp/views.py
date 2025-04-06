@@ -16,6 +16,7 @@ import pandas as pd
 import pandas as pd
 import os
 from django.shortcuts import render
+from django.utils.safestring import mark_safe
 
 global df, X, y, label_encoder, y_encoded, scaler, X_scaled
 global X_train, X_test, y_train, y_test, X_train_tensor, y_train_tensor, X_test_tensor, y_test_tensor
@@ -287,7 +288,7 @@ def predict(request):
         except Exception as e:
             table_html = f"<p>Error loading file: {str(e)}</p>"
 
-        return render(request, 'myapp/predict.html', {"data": table_html})
+        return render(request, 'myapp/predict.html', {"data": mark_safe(table_html)})
     return render(request, 'myapp/predict.html')
 
 def viewgraph(request):
