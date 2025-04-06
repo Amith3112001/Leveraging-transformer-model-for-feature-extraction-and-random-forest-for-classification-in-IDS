@@ -27,4 +27,5 @@ urlpatterns = [
     path('modelcreation', views.modelcreation, name='modelcreation'),
     path('predict', views.predict, name='predict'),
     path('viewgraph', views.viewgraph, name='viewgraph'),
+    path('download_report/', views.download_report, name='download_report'),
 ]
