@@ -13,10 +13,11 @@
     margin-right: auto;
 }
 </style>
-<!-- Include jsPDF and html2canvas -->
+</head>
+
+<!-- JS libraries -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-</head>
 
 <script>
     async function downloadPDF() {
@@ -32,7 +33,6 @@
             });
 
             const pageWidth = pdf.internal.pageSize.getWidth();
-            const pageHeight = pdf.internal.pageSize.getHeight();
             const imgProps = pdf.getImageProperties(imgData);
             const imgWidth = pageWidth - 20;
             const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
@@ -42,6 +42,7 @@
         });
     }
 </script>
+
 
 <body>
 <div class="headlabel">  <h1 style=" font-family: Times New Roman; ">Leveraging Transformer Model for Feature Extraction and Random forest for Classification in IDS</h1> </div>
@@ -81,9 +82,9 @@
               <td> <div style="width: 500px; height: 50px;color: Black;">
                   <div style="text-align: center; color: Black;">
     <h3>Prediction Results</h3>
-    <div id="predictionTable">    <!-- Displays the HTML table -->
-        {{ data | safe }}
-    </div>
+    <div id="predictionTable">
+        {{ data }}
+    </div>    
 </div>
       </div></td>
               <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
