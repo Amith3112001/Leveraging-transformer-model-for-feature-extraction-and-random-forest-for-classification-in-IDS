@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homestyle.css' %}">
+
+</head>
+<body>
+<div class="headlabel">  <h1 style=" font-family: Times New Roman; ">Leveraging Transformer Model for Feature Extraction and Random forest for Classification in IDS</h1> </div>
+<div>
+    <header class="logo">
+
+
+        <nav>
+            <ul>
+                <li><a href="/homepage" style="color: #fff; ">Home</a></li>
+                <li><a href="/eda" style="color: #fff;">Data Upload</a></li>
+                <li><a href="/modelcreation" style="color: #fff;">Model Creation</a></li>
+                <li><a href="/predict" style="color: #fff;">Data Prediction</a></li>
+                <li><a href="/viewgraph" style="color: #fff;">Evaluation Matrix</a></li>
+                <li><a href="/login" style="color: #fff;">Logout</a></li>
+
+            </ul>
+        </nav>
+    </header>
+    </div>
+
+
+      <br>
+      <br>
+      <br>
+      <h1 style="text-align: center;">Evaluation Matrix</h1>
+      <p >
+<h2 >Model Accuracy</h2>
+
+    <img src="{% static 'images/Accuracy.png' %}" alt="Accuracy"  style="width:30%;text-align: center;">
+</p>
+   <p >
+<h2 >Model Loss</h2>
+
+    <img src="{% static 'images/Loss.png' %}" alt="Loss"  style="width:30%;text-align: center;">
+</p>
+<p >
+<h2 >Confusion Matrix</h2>
+
+    <img src="{% static 'images/cm.png' %}" alt="Loss" style="width:30%;text-align: center;">
+</p>
+</body>
+</html>

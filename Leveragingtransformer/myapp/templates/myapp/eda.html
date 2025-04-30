@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homestyle.css' %}">
+
+</head>
+<body>
+<div class="headlabel">  <h1 style=" font-family: Times New Roman; ">Leveraging Transformer Model for Feature Extraction and Random forest for Classification in IDS</h1> </div>
+<div>
+    <header class="logo">
+
+
+        <nav>
+            <ul>
+                <li><a href="/homepage" style="color: #fff; ">Home</a></li>
+                <li><a href="/eda" style="color: #fff;">Data Upload</a></li>
+                <li><a href="/modelcreation" style="color: #fff;">Model Creation</a></li>
+                <li><a href="/predict" style="color: #fff;">Data Prediction</a></li>
+                <li><a href="/viewgraph" style="color: #fff;">Evaluation Matrix</a></li>
+                <li><a href="/login" style="color: #fff;">Logout</a></li>
+
+            </ul>
+        </nav>
+    </header>
+    </div>
+<br>
+<br>
+<br>
+<h1 style="text-align: center;color:black;">Data Preprocessing</h1>
+<div style="text-align:center;font-family: Times New Roman; color:black;">
+    <p style="font-size: 1.5em;text-align: center;line-height: 40px;">{{data1}}</p>
+    <p style="font-size: 1.5em;text-align: center;line-height: 40px;">{{data2}}</p>
+    <p style="font-size: 1.5em;text-align: center;line-height: 40px;">{{data3}}</p>
+    <p style="font-size: 1.5em;text-align: center;line-height: 40px;">{{data4}}</p>
+
+</div>
+<br>
+ <p style="text-align: center;">
+<h2 >Data Visualization</h2>
+
+    <img src="{% static 'images/plt1.png' %}" alt="" class="center" style="width:30%;">
+<img src="{% static 'images/plt2.png' %}" alt="" class="center" style="width:30%;">
+</p>
+</body>
+</html>

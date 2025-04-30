@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homestyle.css' %}">
+<style>
+    table {
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+</head>
+<script>
+    function setDownloadFlag() {
+        document.getElementById('download_flag').value = 1;
+    }
+</script>
+<body>
+<div class="headlabel">  <h1 style=" font-family: Times New Roman; ">Leveraging Transformer Model for Feature Extraction and Random forest for Classification in IDS</h1> </div>
+<div>
+    <header class="logo">
+
+
+        <nav>
+            <ul>
+                <li><a href="/homepage" style="color: #fff; ">Home</a></li>
+                <li><a href="/eda" style="color: #fff;">Data Upload</a></li>
+                <li><a href="/modelcreation" style="color: #fff;">Model Creation</a></li>
+                <li><a href="/predict" style="color: #fff;">Data Prediction</a></li>
+                <li><a href="/viewgraph" style="color: #fff;">Evaluation Matrix</a></li>
+                <li><a href="/login" style="color: #fff;">Logout</a></li>
+
+            </ul>
+        </nav>
+    </header>
+    </div>
+
+<br>
+<br>
+<div>
+    <div style=" font-family: Times New Roman; color:Black;text-align:center;">
+<div style=" font-family: Times New Roman; color:darkblue;text-align:center;">
+ <form action="{% url 'predict' %}" method="POST">
+         {% csrf_token %}
+     <h3 style="text-align:center;color:Black;;">PREDICT NEW DATA </h3><br>
+  <input type="file" id="myFile" name="myFile"><br/><br/><br/>
+  <input type="submit">
+     <br><br>
+     <br><br>
+     <table align="center" style="margin: 0px auto;>
+         <tr>
+             <td>&nbsp;&nbsp;</td>
+              <td> <div style="width: 500px; height: 50px;color: Black;">
+                  <div style="text-align: center; color: Black;">
+    <h3>Prediction Results</h3>
+    <div>{{ data | safe }}</div>  <!-- Displays the HTML table -->
+</div>
+      </div></td>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+         </tr>
+     </table>
+</div>
+<input type="hidden" id="download_flag" name="download_flag" value="0">
+<div style="text-align: center; margin-top: 20px;">
+    <form method="post" action="/download_report/">
+        {% csrf_token %}
+        <button type="submit" style="background-color: green; color: white; padding: 5px 15px;">
+            Download Report
+        </button>
+    </form>
+</div>
+</div>
+</body>
+</html>
